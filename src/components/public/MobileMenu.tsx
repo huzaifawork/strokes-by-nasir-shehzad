@@ -44,7 +44,7 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
             <div className="flex items-center justify-between px-6 py-5 border-b border-gray-100">
               <div className="relative w-32 h-11">
                 <Image
-                  src="/strokesbynasirlogo1.png"
+                  src="/STROKESBYNASIRLOGO1.png"
                   alt="Strokes by Nasir"
                   fill
                   className="object-contain object-left"

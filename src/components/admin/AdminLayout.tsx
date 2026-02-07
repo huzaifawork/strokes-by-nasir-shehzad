@@ -36,7 +36,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           </button>
           <div className="relative w-28 h-10">
             <Image
-              src="/strokesbynasirlogo1.png"
+              src="/STROKESBYNASIRLOGO1.png"
               alt="Strokes by Nasir"
               fill
               className="object-contain object-left"
@@ -57,7 +57,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         <div className="mb-10">
           <div className="relative w-40 h-16 mb-4">
             <Image
-              src="/strokesbynasirlogo1.png"
+              src="/STROKESBYNASIRLOGO1.png"
               alt="Strokes by Nasir"
               fill
               className="object-contain object-left brightness-0 invert"
