@@ -111,7 +111,7 @@ export default function Header() {
             className="relative w-52 h-24 lg:w-72 lg:h-36"
           >
             <Image
-              src="/strokesbynasirlogo1.png"
+              src="/STROKESBYNASIRLOGO1.png"
               alt="Nasir Shehzad - Artist"
               fill
               className="object-contain object-right-top"
