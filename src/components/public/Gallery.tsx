@@ -77,8 +77,18 @@ export default function Gallery() {
 
         {/* Gallery Grid */}
         {loading ? (
-          <div className="flex items-center justify-center min-h-[400px]">
-            <div className="text-gray-400 text-lg">Loading gallery...</div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-10">
+            {[...Array(8)].map((_, index) => (
+              <div key={index} className="animate-pulse">
+                {/* Image Skeleton */}
+                <div className="relative aspect-[3/4] bg-gray-200 rounded-sm mb-4" />
+                {/* Title Skeleton */}
+                <div className="h-6 bg-gray-200 rounded w-3/4 mb-2" />
+                {/* Description Skeleton */}
+                <div className="h-4 bg-gray-200 rounded w-full mb-1" />
+                <div className="h-4 bg-gray-200 rounded w-2/3" />
+              </div>
+            ))}
           </div>
         ) : galleryItems.length === 0 ? (
           <div className="flex items-center justify-center min-h-[400px]">

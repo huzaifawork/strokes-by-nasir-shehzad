@@ -77,8 +77,18 @@ export default function Residencies() {
 
         {/* Residencies Grid */}
         {loading ? (
-          <div className="flex items-center justify-center min-h-[400px]">
-            <div className="text-gray-400 text-lg">Loading residencies...</div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 lg:gap-12">
+            {[...Array(6)].map((_, index) => (
+              <div key={index} className="animate-pulse">
+                {/* Image Skeleton */}
+                <div className="relative aspect-[4/3] bg-gray-200 rounded-sm mb-5" />
+                {/* Title Skeleton */}
+                <div className="h-7 bg-gray-200 rounded w-2/3 mb-3" />
+                {/* Description Skeleton */}
+                <div className="h-4 bg-gray-200 rounded w-full mb-2" />
+                <div className="h-4 bg-gray-200 rounded w-5/6" />
+              </div>
+            ))}
           </div>
         ) : residencies.length === 0 ? (
           <div className="flex items-center justify-center min-h-[400px]">
