@@ -1,36 +1,154 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Nasir Shehzad - Artist Portfolio
+
+A modern, responsive portfolio website for visual artist Nasir Shehzad, featuring a public gallery and secure admin panel for content management.
+
+## Features
+
+### Public Portfolio
+- **Hero Section**: Artist introduction with elegant animations
+- **About Section**: Artist biography, philosophy, and mediums
+- **Gallery**: Image lightbox with navigation and lazy loading
+- **Exhibitions**: Showcase of exhibitions with lightbox
+- **Residencies**: Artist residencies with lightbox
+- **Contact Form**: Email integration with Gmail SMTP
+- **Footer**: Artist information and contact details
+
+### Admin Panel
+- **Secure Authentication**: Firebase Authentication
+- **Dashboard**: Overview statistics
+- **Gallery Management**: Add, edit, delete gallery items
+- **Exhibitions Management**: Manage exhibitions
+- **Residencies Management**: Manage residencies
+- **Image Upload**: Optimized image compression and Firebase Storage
+- **Responsive Design**: Works on all devices
+
+## Tech Stack
+
+- **Framework**: Next.js 16.1.6 with Turbopack
+- **Styling**: Tailwind CSS
+- **Animations**: Framer Motion
+- **Database**: Firebase Firestore
+- **Storage**: Firebase Storage
+- **Authentication**: Firebase Auth
+- **Email**: Nodemailer with Gmail SMTP
+- **Icons**: React Icons
+- **Notifications**: React Hot Toast
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+- Node.js 18+ installed
+- Firebase project created
+- Gmail account with App Password
 
+### Installation
+
+1. Clone the repository:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/YOUR_USERNAME/nasir-shehzad-portfolio.git
+cd nasir-shehzad-portfolio
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Install dependencies:
+```bash
+npm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. Create `.env.local` file in root directory:
+```env
+NEXT_PUBLIC_FIREBASE_API_KEY=your_api_key
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=your_auth_domain
+NEXT_PUBLIC_FIREBASE_PROJECT_ID=your_project_id
+NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=your_storage_bucket
+NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
+NEXT_PUBLIC_FIREBASE_APP_ID=your_app_id
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+GMAIL_USER=your-email@gmail.com
+GMAIL_PASS=your-app-password
+```
 
-## Learn More
+4. Run development server:
+```bash
+npm run dev
+```
 
-To learn more about Next.js, take a look at the following resources:
+5. Open [http://localhost:3000](http://localhost:3000)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Firebase Setup
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Storage Rules
+```
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    match /{allPaths=**} {
+      allow read: if true;
+      allow write: if request.auth != null;
+    }
+  }
+}
+```
 
-## Deploy on Vercel
+### Firestore Rules
+```
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /{document=**} {
+      allow read: if true;
+      allow write: if request.auth != null;
+    }
+  }
+}
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Deployment
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+See [DEPLOYMENT.md](./DEPLOYMENT.md) for detailed deployment instructions.
+
+### Quick Deploy to Vercel
+
+**Remember to add environment variables in Vercel dashboard!**
+
+## Project Structure
+
+```
+artist-portfolio/
+├── src/
+│   ├── app/                    # Next.js app directory
+│   │   ├── admin/             # Admin panel pages
+│   │   ├── api/               # API routes
+│   │   ├── login/             # Login page
+│   │   └── page.tsx           # Home page
+│   ├── components/
+│   │   ├── admin/             # Admin components
+│   │   └── public/            # Public components
+│   ├── lib/                   # Firebase configuration
+│   └── services/              # Service functions
+├── public/                    # Static assets
+└── .env.local                 # Environment variables (not in repo)
+```
+
+## Admin Access
+
+- URL: `/login`
+- Credentials: Set up in Firebase Authentication
+
+## Features Highlights
+
+- ✅ Fully responsive design
+- ✅ Image lazy loading for performance
+- ✅ Image lightbox with keyboard navigation
+- ✅ Image compression on upload
+- ✅ Protected admin routes
+- ✅ Email notifications via contact form
+- ✅ Smooth animations throughout
+- ✅ SEO optimized
+
+## License
+
+© 2026 Nasir Shehzad. All rights reserved.
+
+## Support
+
+For issues or questions, contact: strokesbynasirshehzad@gmail.com
