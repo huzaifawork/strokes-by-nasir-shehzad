@@ -56,11 +56,45 @@ export default function GalleryAdmin() {
     setUploading(true);
 
     try {
+      // Validation
+      if (!formData.name.trim()) {
+        toast.error('Please enter an artwork name');
+        setUploading(false);
+        return;
+      }
+      if (!formData.description.trim()) {
+        toast.error('Please enter a description');
+        setUploading(false);
+        return;
+      }
+      if (!formData.size.trim()) {
+        toast.error('Please enter the size');
+        setUploading(false);
+        return;
+      }
+      if (!formData.price.trim()) {
+        toast.error('Please enter the price');
+        setUploading(false);
+        return;
+      }
+      if (!editingItem && !imageFile) {
+        toast.error('Please upload an image');
+        setUploading(false);
+        return;
+      }
+
       let imageUrl = editingItem?.imageUrl || '';
 
       // Upload new image if provided
       if (imageFile) {
-        imageUrl = await uploadImage(imageFile, 'gallery');
+        try {
+          imageUrl = await uploadImage(imageFile, 'gallery');
+        } catch (uploadError: any) {
+          console.error('Image upload error:', uploadError);
+          toast.error(`Failed to upload image: ${uploadError.message || 'Unknown error'}`);
+          setUploading(false);
+          return;
+        }
       }
 
       const itemData = {
@@ -81,9 +115,22 @@ export default function GalleryAdmin() {
 
       closeModal();
       fetchItems();
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error saving item:', error);
-      toast.error('Failed to save artwork');
+      console.error('Error code:', error.code);
+      console.error('Error message:', error.message);
+      
+      // Provide specific error messages
+      let errorMessage = 'Failed to save artwork';
+      if (error.code === 'permission-denied') {
+        errorMessage = 'Permission denied. Please check Firebase rules.';
+      } else if (error.code === 'unavailable') {
+        errorMessage = 'Network error. Please check your connection.';
+      } else if (error.message) {
+        errorMessage = `Error: ${error.message}`;
+      }
+      
+      toast.error(errorMessage);
     } finally {
       setUploading(false);
     }
