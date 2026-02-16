@@ -182,10 +182,11 @@ export default function Exhibitions() {
               initial={{ scale: 0.9 }}
               animate={{ scale: 1 }}
               exit={{ scale: 0.9 }}
-              className="relative max-w-6xl max-h-[90vh] w-full h-full"
+              className="relative w-full h-full max-w-6xl flex flex-col overflow-y-auto"
               onClick={(e) => e.stopPropagation()}
             >
-              <div className="relative w-full h-full flex items-center justify-center">
+              {/* Image Container */}
+              <div className="relative w-full flex-shrink-0" style={{ height: 'min(70vh, 600px)' }}>
                 <Image
                   src={exhibitions[selectedImage].imageUrl}
                   alt={exhibitions[selectedImage].title}
@@ -195,10 +196,10 @@ export default function Exhibitions() {
                 />
               </div>
 
-              {/* Image Info */}
-              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-6 text-white">
-                <h3 className="text-2xl font-medium mb-2">{exhibitions[selectedImage].title}</h3>
-                <p className="text-sm text-gray-300">{exhibitions[selectedImage].description}</p>
+              {/* Image Info - Below image on mobile, overlay on desktop */}
+              <div className="bg-black/90 md:bg-gradient-to-t md:from-black/80 md:to-transparent p-4 sm:p-6 text-white md:absolute md:bottom-0 md:left-0 md:right-0">
+                <h3 className="text-xl sm:text-2xl font-medium mb-2">{exhibitions[selectedImage].title}</h3>
+                <p className="text-sm text-gray-300 leading-relaxed">{exhibitions[selectedImage].description}</p>
               </div>
             </motion.div>
 
