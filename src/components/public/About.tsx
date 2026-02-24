@@ -105,7 +105,27 @@ export default function About() {
           </p>
         </motion.div>
 
-        {/* Mission Statement - Removed */}
+        {/* Vision & Mission */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.8 }}
+          className="mt-16 md:mt-20 lg:mt-24 grid md:grid-cols-2 gap-10 md:gap-12"
+        >
+          <div>
+            <h3 className="text-xs sm:text-sm uppercase tracking-wider text-gray-500 mb-4 md:mb-6">Our Vision</h3>
+            <p className="text-base md:text-lg text-gray-800 leading-relaxed">
+              Everything we have learned and the work we have created through art is driven by a single commitment: to share this knowledge with the coming generations. To us, art is not just a practice, but a <span className="font-medium">legacy</span> that must be passed forward to inspire and shape the future. We strive to create an environment where creativity is nurtured as a vital life skill, ensuring that the artistic wisdom of the past becomes the foundation for tomorrow&apos;s innovations. By fostering this collective growth, we aim to build a community where every individual can find their unique voice and contributing to a living heritage.
+            </p>
+          </div>
+          <div>
+            <h3 className="text-xs sm:text-sm uppercase tracking-wider text-gray-500 mb-4 md:mb-6">Our Mission</h3>
+            <p className="text-base md:text-lg text-gray-800 leading-relaxed">
+              Our mission is to take the incredible talent of Pakistani artists and the richness of our art and introduce it to the <span className="font-medium">international market</span> in a truly respectable and impactful way. We aim to build bridges between local traditions and global contemporary spaces, providing a platform where our unique cultural narratives can be heard and appreciated by the world. This journey is about establishing a sustainable standard of excellence for our creative community, ensuring that our artistic contributions are not only seen but deeply felt across borders and generations to come.
+            </p>
+          </div>
+        </motion.div>
 
       </div>
     </section>

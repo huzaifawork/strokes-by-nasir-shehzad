@@ -6,7 +6,6 @@ export interface GalleryItem {
   name: string;
   description: string;
   size: string;
-  price: string;
   imageUrl: string;
   order: number;
   createdAt: Date;

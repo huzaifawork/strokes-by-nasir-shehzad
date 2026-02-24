@@ -137,13 +137,10 @@ export default function Gallery() {
                     {item.description}
                   </p>
                   
-                  {/* Size & Price */}
+                  {/* Size */}
                   <div className="flex items-center justify-between pt-2 border-t border-gray-200">
                     <span className="text-xs uppercase tracking-wider text-gray-500">
                       {item.size}
-                    </span>
-                    <span className="text-lg font-medium text-black">
-                      {item.price}
                     </span>
                   </div>
                 </div>
@@ -212,7 +209,6 @@ export default function Gallery() {
                 <p className="text-sm text-gray-300 mb-3 leading-relaxed">{galleryItems[selectedImage].description}</p>
                 <div className="flex items-center justify-between text-sm">
                   <span>{galleryItems[selectedImage].size}</span>
-                  <span className="text-lg font-medium">{galleryItems[selectedImage].price}</span>
                 </div>
               </div>
             </motion.div>
