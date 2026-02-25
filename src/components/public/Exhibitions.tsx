@@ -58,7 +58,7 @@ export default function Exhibitions() {
   }, [selectedImage]);
 
   return (
-    <section id="exhibitions" className="relative min-h-screen bg-white py-24 lg:py-32">
+    <section id="exhibitions" className="relative min-h-screen bg-white py-24 lg:py-32 scroll-mt-24 lg:scroll-mt-32">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         
         {/* Section Header */}
@@ -103,11 +103,11 @@ export default function Exhibitions() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="group cursor-pointer"
+                className="group cursor-pointer flex flex-col h-full"
                 onClick={() => openLightbox(index)}
               >
                 {/* Image Container */}
-                <div className="relative aspect-[4/3] bg-gray-100 overflow-hidden mb-5 shadow-sm hover:shadow-2xl transition-shadow duration-500">
+                <div className="relative aspect-[4/3] bg-gray-100 overflow-hidden mb-6 shadow-sm hover:shadow-2xl transition-shadow duration-500">
                   <Image
                     src={exhibition.imageUrl}
                     alt={exhibition.title}
@@ -119,23 +119,29 @@ export default function Exhibitions() {
                   
                   {/* Subtle Hover Overlay */}
                   <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors duration-500 flex items-center justify-center">
-                    <span className="text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-sm font-medium">
-                      Click to view
+                    <span className="text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-sm font-medium backdrop-blur-sm bg-black/20 px-4 py-2 rounded-full">
+                      View Exhibition
                     </span>
                   </div>
                 </div>
 
                 {/* Exhibition Details */}
-                <div className="space-y-3">
+                <div className="flex flex-col flex-grow">
                   {/* Title */}
-                  <h3 className="text-2xl font-medium text-black tracking-tight">
+                  <h3 className="text-2xl font-medium text-black tracking-tight mb-3">
                     {exhibition.title}
                   </h3>
                   
                   {/* Description */}
-                  <p className="text-base text-gray-600 leading-relaxed">
+                  <p className="text-base text-gray-600 leading-relaxed line-clamp-3 mb-6 flex-grow">
                     {exhibition.description}
                   </p>
+                  
+                  {/* View Details Indicator */}
+                  <div className="flex items-center gap-3 text-black/40 group-hover:text-black transition-colors duration-300">
+                    <span className="text-[10px] uppercase tracking-[0.2em] font-bold">Discover</span>
+                    <div className="h-[1px] w-8 bg-current transition-all duration-500 group-hover:w-16" />
+                  </div>
                 </div>
               </motion.div>
             ))}
@@ -197,9 +203,13 @@ export default function Exhibitions() {
               </div>
 
               {/* Image Info - Below image on mobile, overlay on desktop */}
-              <div className="bg-black/90 md:bg-gradient-to-t md:from-black/80 md:to-transparent p-4 sm:p-6 text-white md:absolute md:bottom-0 md:left-0 md:right-0">
-                <h3 className="text-xl sm:text-2xl font-medium mb-2">{exhibitions[selectedImage].title}</h3>
-                <p className="text-sm text-gray-300 leading-relaxed">{exhibitions[selectedImage].description}</p>
+              <div className="bg-black/90 md:bg-gradient-to-t md:from-black/90 md:via-black/70 md:to-transparent p-6 sm:p-8 text-white md:absolute md:bottom-0 md:left-0 md:right-0">
+                <h3 className="text-2xl sm:text-3xl font-medium mb-3">{exhibitions[selectedImage].title}</h3>
+                <div className="max-h-[150px] overflow-y-auto pr-4 custom-scrollbar lg:max-w-3xl">
+                  <p className="text-base text-gray-300 leading-relaxed font-light">
+                    {exhibitions[selectedImage].description}
+                  </p>
+                </div>
               </div>
             </motion.div>
 

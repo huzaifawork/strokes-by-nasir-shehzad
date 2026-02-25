@@ -58,7 +58,7 @@ export default function Gallery() {
   }, [selectedImage]);
 
   return (
-    <section id="gallery" className="relative min-h-screen bg-[#F8F8F8] py-24 lg:py-32">
+    <section id="gallery" className="relative min-h-screen bg-[#F8F8F8] py-24 lg:py-32 scroll-mt-24 lg:scroll-mt-32">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         
         {/* Section Header */}

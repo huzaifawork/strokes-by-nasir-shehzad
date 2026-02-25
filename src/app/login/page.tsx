@@ -5,6 +5,7 @@ import { useAuth } from '@/context/AuthContext';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { LuLock, LuMail, LuEye, LuEyeOff } from 'react-icons/lu';
+import toast from 'react-hot-toast';
 import Image from 'next/image';
 
 export default function LoginPage() {
@@ -23,26 +24,29 @@ export default function LoginPage() {
 
     try {
       await signIn(email, password);
+      toast.success('Welcome back, Nasir!');
       router.push('/admin');
     } catch (err: any) {
       // Handle different Firebase error codes
       let errorMessage = 'An error occurred. Please try again.';
       
-      if (err.code === 'auth/invalid-credential') {
-        errorMessage = 'Invalid email or password. Please check your credentials and try again.';
-      } else if (err.code === 'auth/user-not-found') {
-        errorMessage = 'No account found with this email address.';
-      } else if (err.code === 'auth/wrong-password') {
-        errorMessage = 'Incorrect password. Please try again.';
-      } else if (err.code === 'auth/too-many-requests') {
-        errorMessage = 'Too many failed login attempts. Please try again later.';
-      } else if (err.code === 'auth/network-request-failed') {
-        errorMessage = 'Network error. Please check your internet connection.';
-      } else if (err.message) {
-        errorMessage = err.message;
-      }
+      // Map specific Firebase error codes to user-friendly messages
+      const errorMap: { [key: string]: string } = {
+        'auth/invalid-credential': 'Invalid email or password. Please try again.',
+        'auth/user-not-found': 'No account found with this email address.',
+        'auth/wrong-password': 'The password you entered is incorrect.',
+        'auth/too-many-requests': 'Too many failed login attempts. Please try again later.',
+        'auth/network-request-failed': 'Network error. Please check your connection.',
+        'auth/invalid-email': 'Please enter a valid email address.',
+      };
+
+      errorMessage = errorMap[err.code] || err.message || errorMessage;
       
       setError(errorMessage);
+      toast.error(errorMessage, {
+        duration: 5000,
+        id: 'login-error', // Prevent duplicate toasts
+      });
     } finally {
       setLoading(false);
     }

@@ -4,7 +4,7 @@ import { useAuth } from '@/context/AuthContext';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-import { LuHouse, LuImage, LuCalendar, LuMapPin, LuLogOut, LuMenu, LuX } from 'react-icons/lu';
+import { LuHouse, LuImage, LuCalendar, LuMapPin, LuLogOut, LuMenu, LuX, LuAward } from 'react-icons/lu';
 import { useState } from 'react';
 
 const navItems = [
@@ -12,6 +12,7 @@ const navItems = [
   { name: 'Gallery', href: '/admin/gallery', icon: LuImage },
   { name: 'Exhibitions', href: '/admin/exhibitions', icon: LuCalendar },
   { name: 'Residencies', href: '/admin/residencies', icon: LuMapPin },
+  { name: 'Awards', href: '/admin/awards', icon: LuAward },
 ];
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {

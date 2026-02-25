@@ -13,6 +13,7 @@ const navigationLinks = [
   { name: 'Gallery', href: '#gallery' },
   { name: 'Exhibitions', href: '#exhibitions' },
   { name: 'Residencies', href: '#residencies' },
+  { name: 'Awards', href: '#awards' },
 ];
 
 export default function Header() {
