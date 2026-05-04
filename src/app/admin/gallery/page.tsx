@@ -24,6 +24,8 @@ export default function GalleryAdmin() {
     name: '',
     description: '',
     size: '',
+    pricePKR: '',
+    priceUSD: '',
     order: 0
   });
   const [imageFile, setImageFile] = useState<File | null>(null);
@@ -151,12 +153,14 @@ export default function GalleryAdmin() {
         name: item.name,
         description: item.description,
         size: item.size,
+        pricePKR: item.pricePKR || '',
+        priceUSD: item.priceUSD || '',
         order: item.order
       });
       setImagePreview(item.imageUrl);
     } else {
       setEditingItem(null);
-      setFormData({ name: '', description: '', size: '', order: items.length });
+      setFormData({ name: '', description: '', size: '', pricePKR: '', priceUSD: '', order: items.length });
       setImagePreview('');
     }
     setImageFile(null);
@@ -166,7 +170,7 @@ export default function GalleryAdmin() {
   const closeModal = () => {
     setShowModal(false);
     setEditingItem(null);
-    setFormData({ name: '', description: '', size: '', order: 0 });
+    setFormData({ name: '', description: '', size: '', pricePKR: '', priceUSD: '', order: 0 });
     setImageFile(null);
     setImagePreview('');
   };
@@ -227,6 +231,11 @@ export default function GalleryAdmin() {
                     <p className="text-xs sm:text-sm text-gray-600 mb-2 line-clamp-2">{item.description}</p>
                     <div className="flex justify-between items-center mb-3">
                       <span className="text-xs text-gray-500">{item.size}</span>
+                      <span className="text-xs font-medium text-black">
+                        {item.pricePKR && `PKR ${item.pricePKR}`}
+                        {item.pricePKR && item.priceUSD && ' | '}
+                        {item.priceUSD && `USD ${item.priceUSD}`}
+                      </span>
                     </div>
                     <div className="flex space-x-2">
                       <button
@@ -338,6 +347,33 @@ export default function GalleryAdmin() {
                         className="w-full px-3 sm:px-4 py-2 sm:py-2.5 text-sm sm:text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none"
                         placeholder="e.g., 24x36 inches"
                       />
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                          Price (PKR)
+                        </label>
+                        <input
+                          type="text"
+                          value={formData.pricePKR}
+                          onChange={(e) => setFormData({ ...formData, pricePKR: e.target.value })}
+                          className="w-full px-3 sm:px-4 py-2 sm:py-2.5 text-sm sm:text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none"
+                          placeholder="e.g., 50,000"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                          Price (USD)
+                        </label>
+                        <input
+                          type="text"
+                          value={formData.priceUSD}
+                          onChange={(e) => setFormData({ ...formData, priceUSD: e.target.value })}
+                          className="w-full px-3 sm:px-4 py-2 sm:py-2.5 text-sm sm:text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none"
+                          placeholder="e.g., 200"
+                        />
+                      </div>
                     </div>
                   </div>
 

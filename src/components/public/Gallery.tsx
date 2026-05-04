@@ -142,6 +142,13 @@ export default function Gallery() {
                     <span className="text-xs uppercase tracking-wider text-gray-500">
                       {item.size}
                     </span>
+                    {(item.pricePKR || item.priceUSD) && (
+                      <span className="text-sm font-medium text-black">
+                        {item.pricePKR && `PKR ${item.pricePKR}`}
+                        {item.pricePKR && item.priceUSD && ' | '}
+                        {item.priceUSD && `USD ${item.priceUSD}`}
+                      </span>
+                    )}
                   </div>
                 </div>
               </motion.div>
@@ -209,6 +216,13 @@ export default function Gallery() {
                 <p className="text-sm text-gray-300 mb-3 leading-relaxed">{galleryItems[selectedImage].description}</p>
                 <div className="flex items-center justify-between text-sm">
                   <span>{galleryItems[selectedImage].size}</span>
+                  {(galleryItems[selectedImage].pricePKR || galleryItems[selectedImage].priceUSD) && (
+                    <span className="font-medium">
+                      {galleryItems[selectedImage].pricePKR && `PKR ${galleryItems[selectedImage].pricePKR}`}
+                      {galleryItems[selectedImage].pricePKR && galleryItems[selectedImage].priceUSD && ' | '}
+                      {galleryItems[selectedImage].priceUSD && `USD ${galleryItems[selectedImage].priceUSD}`}
+                    </span>
+                  )}
                 </div>
               </div>
             </motion.div>
