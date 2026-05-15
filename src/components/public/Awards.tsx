@@ -66,7 +66,7 @@ export default function Awards() {
           transition={{ duration: 0.8 }}
           className="mb-16 lg:mb-24"
         >
-          <h2 className="text-5xl md:text-6xl lg:text-7xl font-normal tracking-tight text-black mb-4">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-normal tracking-tight text-black mb-4">
             Certificates & Awards
           </h2>
           <div className="h-[1px] w-24 bg-black" />
@@ -102,39 +102,40 @@ export default function Awards() {
                 onClick={() => openLightbox(index)}
               >
                 {/* Images Duo Container */}
-                <div className="grid grid-cols-2 gap-4 mb-8">
-                  {/* Award Image */}
-                  <div className="relative aspect-[3/4] bg-gray-50 overflow-hidden shadow-sm group-hover:shadow-2xl transition-all duration-700">
-                    <Image
-                      src={award.awardImageUrl}
-                      alt={`${award.title} - Certificate`}
-                      fill
-                      className="object-cover transition-transform duration-700 group-hover:scale-105"
-                      sizes="(max-width: 768px) 50vw, 25vw"
-                    />
-                    <div className="absolute top-3 left-3 px-2 py-1 bg-white/90 backdrop-blur-sm text-[8px] uppercase tracking-widest font-bold text-black border border-black/5">
-                      Certificate
+                <div className={`grid gap-4 mb-8 ${award.awardImageUrl && award.receivingImageUrl ? 'grid-cols-2' : 'grid-cols-1'}`}>
+                  {award.awardImageUrl && (
+                    <div className="relative aspect-[3/4] bg-gray-50 overflow-hidden shadow-sm group-hover:shadow-2xl transition-all duration-700">
+                      <Image
+                        src={award.awardImageUrl}
+                        alt={`${award.title} - Certificate`}
+                        fill
+                        className="object-cover transition-transform duration-700 group-hover:scale-105"
+                        sizes="(max-width: 768px) 50vw, 25vw"
+                      />
+                      <div className="absolute top-3 left-3 px-2 py-1 bg-white/90 backdrop-blur-sm text-[8px] uppercase tracking-widest font-bold text-black border border-black/5">
+                        Certificate
+                      </div>
                     </div>
-                  </div>
-                  
-                  {/* Receiving Image */}
-                  <div className="relative aspect-[3/4] bg-gray-50 overflow-hidden shadow-sm group-hover:shadow-2xl transition-all duration-700 mt-8 md:mt-12 group-hover:mt-4 transition-all duration-700">
-                    <Image
-                      src={award.receivingImageUrl}
-                      alt={`${award.title} - Occasion`}
-                      fill
-                      className="object-cover transition-transform duration-700 group-hover:scale-105"
-                      sizes="(max-width: 768px) 50vw, 25vw"
-                    />
-                    <div className="absolute top-3 left-3 px-2 py-1 bg-white/90 backdrop-blur-sm text-[8px] uppercase tracking-widest font-bold text-black border border-black/5">
-                      The Occasion
+                  )}
+                  {award.receivingImageUrl && (
+                    <div className="relative aspect-[3/4] bg-gray-50 overflow-hidden shadow-sm group-hover:shadow-2xl transition-all duration-700 mt-8 md:mt-12 group-hover:mt-4 transition-all duration-700">
+                      <Image
+                        src={award.receivingImageUrl}
+                        alt={`${award.title} - Occasion`}
+                        fill
+                        className="object-cover transition-transform duration-700 group-hover:scale-105"
+                        sizes="(max-width: 768px) 50vw, 25vw"
+                      />
+                      <div className="absolute top-3 left-3 px-2 py-1 bg-white/90 backdrop-blur-sm text-[8px] uppercase tracking-widest font-bold text-black border border-black/5">
+                        The Occasion
+                      </div>
                     </div>
-                  </div>
+                  )}
                 </div>
 
                 {/* Award Details */}
                 <div className="flex flex-col mt-auto pt-4 border-t border-gray-100">
-                  <h3 className="text-2xl md:text-3xl font-medium text-black tracking-tight mb-4 group-hover:text-gray-600 transition-colors duration-300">
+                  <h3 className="text-base md:text-lg font-medium text-black tracking-tight mb-3 group-hover:text-gray-600 transition-colors duration-300">
                     {award.title}
                   </h3>
                   
@@ -186,47 +187,41 @@ export default function Awards() {
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
-              className="w-full h-full max-w-7xl flex flex-col md:flex-row items-center justify-center p-6 md:p-12 gap-8 md:gap-16"
+              className="w-full h-full max-w-5xl flex flex-col p-6 md:p-10 gap-4 overflow-y-auto"
               onClick={(e) => e.stopPropagation()}
             >
-              <div className="flex-1 w-full h-full relative flex flex-col items-center justify-center space-y-8 overflow-y-auto custom-scrollbar">
-                
-                <h3 className="text-2xl md:text-5xl font-light text-white text-center tracking-tight mb-4 md:mb-12">
-                  {awards[selectedAward].title}
-                </h3>
+              {/* Title always visible at top */}
+              <h3 className="text-base md:text-lg font-light text-white tracking-tight flex-shrink-0">
+                {awards[selectedAward].title}
+              </h3>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10 w-full">
-                  <div className="group relative aspect-[3/4] md:aspect-[4/5] overflow-hidden rounded-sm bg-white/5">
-                    <Image
-                      src={awards[selectedAward].awardImageUrl}
-                      alt="Award Certificate"
-                      fill
-                      className="object-contain p-2"
-                    />
-                    <div className="absolute bottom-4 left-4 text-[10px] uppercase tracking-widest text-white/40 bg-black/40 px-2 py-1 rounded">The Award</div>
+              {/* Images capped in height */}
+              <div className={`grid gap-4 md:gap-6 flex-shrink-0 ${awards[selectedAward].awardImageUrl && awards[selectedAward].receivingImageUrl ? 'grid-cols-2' : 'grid-cols-1 max-w-xs mx-auto w-full'}`}>
+                {awards[selectedAward].awardImageUrl && (
+                  <div className="relative bg-white/5 rounded-sm" style={{ height: 'min(55vh, 420px)' }}>
+                    <Image src={awards[selectedAward].awardImageUrl} alt="Award Certificate" fill className="object-contain p-2" />
+                    <div className="absolute bottom-3 left-3 text-[10px] uppercase tracking-widest text-white/40 bg-black/40 px-2 py-1 rounded">The Award</div>
                   </div>
-                  <div className="group relative aspect-[3/4] md:aspect-[4/5] overflow-hidden rounded-sm bg-white/5">
-                    <Image
-                      src={awards[selectedAward].receivingImageUrl}
-                      alt="Receiving Award"
-                      fill
-                      className="object-contain p-2"
-                    />
-                    <div className="absolute bottom-4 left-4 text-[10px] uppercase tracking-widest text-white/40 bg-black/40 px-2 py-1 rounded">The Occasion</div>
+                )}
+                {awards[selectedAward].receivingImageUrl && (
+                  <div className="relative bg-white/5 rounded-sm" style={{ height: 'min(55vh, 420px)' }}>
+                    <Image src={awards[selectedAward].receivingImageUrl} alt="Receiving Award" fill className="object-contain p-2" />
+                    <div className="absolute bottom-3 left-3 text-[10px] uppercase tracking-widest text-white/40 bg-black/40 px-2 py-1 rounded">The Occasion</div>
                   </div>
-                </div>
+                )}
+              </div>
 
-                <div className="flex items-center gap-6 mt-12 md:hidden">
-                    <button onClick={goToPrevious} className="p-4 bg-white/5 rounded-full"><LuChevronLeft className="w-6 h-6 text-white" /></button>
-                    <span className="text-white/40 text-sm">{selectedAward + 1} / {awards.length}</span>
-                    <button onClick={goToNext} className="p-4 bg-white/5 rounded-full"><LuChevronRight className="w-6 h-6 text-white" /></button>
-                </div>
+              {/* Mobile nav */}
+              <div className="flex items-center justify-center gap-6 md:hidden flex-shrink-0">
+                <button onClick={goToPrevious} className="p-4 bg-white/5 rounded-full"><LuChevronLeft className="w-6 h-6 text-white" /></button>
+                <span className="text-white/40 text-sm">{selectedAward + 1} / {awards.length}</span>
+                <button onClick={goToNext} className="p-4 bg-white/5 rounded-full"><LuChevronRight className="w-6 h-6 text-white" /></button>
               </div>
             </motion.div>
 
             {/* Counter */}
-            <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-white/40 text-sm tracking-[0.3em] font-light hidden md:block">
-              CERTIFICATE {selectedAward + 1} OF {awards.length}
+            <div className="absolute top-4 left-1/2 -translate-x-1/2 text-white/40 text-sm hidden md:block">
+              {selectedAward + 1} / {awards.length}
             </div>
           </motion.div>
         )}

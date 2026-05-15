@@ -72,6 +72,12 @@ export default function AwardsAdmin() {
         receivingImageUrl = await uploadImage(receivingImageFile, 'awards_receiving');
       }
 
+      if (!awardImageUrl && !receivingImageUrl) {
+        toast.error('At least one image is required');
+        setUploading(false);
+        return;
+      }
+
       const itemData = { 
         ...formData, 
         awardImageUrl, 
@@ -114,8 +120,8 @@ export default function AwardsAdmin() {
     if (item) {
       setEditingItem(item);
       setFormData({ title: item.title, order: item.order });
-      setAwardImagePreview(item.awardImageUrl);
-      setReceivingImagePreview(item.receivingImageUrl);
+      setAwardImagePreview(item.awardImageUrl || '');
+      setReceivingImagePreview(item.receivingImageUrl || '');
     } else {
       setEditingItem(null);
       setFormData({ title: '', order: items.length });
@@ -175,15 +181,19 @@ export default function AwardsAdmin() {
                   transition={{ duration: 0.3, delay: index * 0.05 }}
                   className="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow"
                 >
-                  <div className="grid grid-cols-2 aspect-[4/3]">
-                    <div className="relative overflow-hidden group cursor-pointer border-r border-gray-100">
-                      <Image src={item.awardImageUrl} alt="Award" fill className="object-cover transition-transform duration-300 group-hover:scale-110" />
-                      <div className="absolute top-2 left-2 bg-black/50 backdrop-blur-md text-[10px] text-white px-2 py-0.5 rounded-full">Award</div>
-                    </div>
-                    <div className="relative overflow-hidden group cursor-pointer">
-                      <Image src={item.receivingImageUrl} alt="Receiving" fill className="object-cover transition-transform duration-300 group-hover:scale-110" />
-                      <div className="absolute top-2 left-2 bg-black/50 backdrop-blur-md text-[10px] text-white px-2 py-0.5 rounded-full">Receiving</div>
-                    </div>
+                  <div className={`grid aspect-[4/3] ${item.awardImageUrl && item.receivingImageUrl ? 'grid-cols-2' : 'grid-cols-1'}`}>
+                    {item.awardImageUrl && (
+                      <div className="relative overflow-hidden group cursor-pointer border-r border-gray-100">
+                        <Image src={item.awardImageUrl} alt="Award" fill className="object-cover transition-transform duration-300 group-hover:scale-110" />
+                        <div className="absolute top-2 left-2 bg-black/50 backdrop-blur-md text-[10px] text-white px-2 py-0.5 rounded-full">Award</div>
+                      </div>
+                    )}
+                    {item.receivingImageUrl && (
+                      <div className="relative overflow-hidden group cursor-pointer">
+                        <Image src={item.receivingImageUrl} alt="Receiving" fill className="object-cover transition-transform duration-300 group-hover:scale-110" />
+                        <div className="absolute top-2 left-2 bg-black/50 backdrop-blur-md text-[10px] text-white px-2 py-0.5 rounded-full">Receiving</div>
+                      </div>
+                    )}
                   </div>
                   <div className="p-4">
                     <h3 className="font-semibold text-base sm:text-lg text-black mb-3">{item.title}</h3>
@@ -247,7 +257,7 @@ export default function AwardsAdmin() {
                     {/* Award Image */}
                     <div className="space-y-3">
                       <label className="block text-sm font-medium text-gray-700">
-                        Award Image {!editingItem && <span className="text-red-500">*</span>}
+                        Award Image <span className="text-gray-400 text-xs">(optional)</span>
                       </label>
                       <div className="flex flex-col items-center space-y-4">
                         {awardImagePreview ? (
@@ -263,7 +273,7 @@ export default function AwardsAdmin() {
                         <label className="w-full cursor-pointer flex items-center justify-center space-x-2 px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors text-sm">
                           <LuUpload className="w-4 h-4" />
                           <span>{awardImageFile ? 'Change Award Image' : 'Upload Award Image'}</span>
-                          <input type="file" accept="image/*" onChange={handleAwardImageChange} className="hidden" required={!editingItem} />
+                          <input type="file" accept="image/*" onChange={handleAwardImageChange} className="hidden" />
                         </label>
                       </div>
                     </div>
@@ -271,7 +281,7 @@ export default function AwardsAdmin() {
                     {/* Receiving Image */}
                     <div className="space-y-3">
                       <label className="block text-sm font-medium text-gray-700">
-                        Receiving Image {!editingItem && <span className="text-red-500">*</span>}
+                        Receiving Image <span className="text-gray-400 text-xs">(optional)</span>
                       </label>
                       <div className="flex flex-col items-center space-y-4">
                         {receivingImagePreview ? (
@@ -287,7 +297,7 @@ export default function AwardsAdmin() {
                         <label className="w-full cursor-pointer flex items-center justify-center space-x-2 px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors text-sm">
                           <LuUpload className="w-4 h-4" />
                           <span>{receivingImageFile ? 'Change Receiving Image' : 'Upload Receiving Image'}</span>
-                          <input type="file" accept="image/*" onChange={handleReceivingImageChange} className="hidden" required={!editingItem} />
+                          <input type="file" accept="image/*" onChange={handleReceivingImageChange} className="hidden" />
                         </label>
                       </div>
                     </div>

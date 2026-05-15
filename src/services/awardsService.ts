@@ -4,8 +4,8 @@ import { db } from '@/lib/firebase';
 export interface Award {
   id: string;
   title: string;
-  awardImageUrl: string;
-  receivingImageUrl: string;
+  awardImageUrl?: string;
+  receivingImageUrl?: string;
   order: number;
   createdAt: Date;
 }
